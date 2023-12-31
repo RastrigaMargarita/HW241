@@ -5,7 +5,7 @@ class Kurs(models.Model):
     title = models.CharField(max_length=100, verbose_name="Название", unique=True)
     description = models.CharField(max_length=500, verbose_name="описание", null=True)
     picture = models.ImageField(verbose_name="изображение (превью)", null=True)
-
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
 
 class Lesson(models.Model):
     title = models.CharField(max_length=100, verbose_name="Название", unique=True)
@@ -13,10 +13,7 @@ class Lesson(models.Model):
     picture = models.ImageField(verbose_name="изображение (превью)", null=True)
     video = models.CharField(max_length=500, verbose_name="ссылка на видео", null=True)
     kurs = models.ForeignKey("Kurs", on_delete=models.CASCADE)
-
-# 24.2 Добавьте новую модель «Платежи» со следующими полями:
-# пользователь,     дата оплаты,    оплаченный курс или урок,    сумма оплаты,    способ оплаты: наличные или перевод на счет.
-# Запишите в эту модель данные через инструмент фикстур или кастомную команду.
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
 
 class Payment(models.Model):
 

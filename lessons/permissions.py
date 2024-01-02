@@ -8,6 +8,7 @@ class IsOwnerOrModerator(BasePermission):
 
         return not request.user.groups.filter(name='Moderator').exists()
 
+
 class IsOwner(BasePermission):
     def has_permission(self, request, view):
         return request.user == view.get_object().owner

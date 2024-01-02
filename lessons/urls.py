@@ -6,6 +6,7 @@ from config import settings
 from lessons.views.kurs import KursViewSet
 from lessons.views.lesson import LessonCreateView, LessonDestroyView, LessonRetriveView, LessonUpdateView, LessonListView
 from lessons.views.payment import PaymentListView
+from lessons.views.subscription import SubscribeCreateView, SubscribeDeleteView
 
 urlpatterns = [
     path('', LessonListView.as_view()),
@@ -14,10 +15,10 @@ urlpatterns = [
     path('<int:pk>/', LessonRetriveView.as_view()),
     path('destroy/<int:pk>', LessonDestroyView.as_view()),
     path('payments/', PaymentListView.as_view()),
+    path('<int:pk>/subscribe/', SubscribeCreateView.as_view()),
+    path('unsubscribe/<int:pk>', SubscribeDeleteView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-router = routers.SimpleRouter()
-router.register('kurs', KursViewSet)
+router = routers.DefaultRouter()
+router.register(r'kurs', KursViewSet, basename="kurs")
 urlpatterns += router.urls
-
-

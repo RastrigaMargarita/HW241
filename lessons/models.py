@@ -4,7 +4,7 @@ from lessons.validators import validate_video_url
 
 
 # Create your models here.
-class Kurs(models.Model):
+class Course(models.Model):
     title = models.CharField(max_length=100, verbose_name="Название", unique=True)
     description = models.CharField(max_length=500, verbose_name="описание", null=True)
     picture = models.ImageField(verbose_name="изображение (превью)", null=True)
@@ -16,7 +16,7 @@ class Lesson(models.Model):
     description = models.CharField(max_length=500, verbose_name="описание", null=True)
     picture = models.ImageField(verbose_name="изображение (превью)", null=True)
     video = models.CharField(max_length=500, verbose_name="ссылка на видео", null=True, validators=[validate_video_url])
-    kurs = models.ForeignKey("Kurs", on_delete=models.CASCADE)
+    course = models.ForeignKey("Course", on_delete=models.CASCADE)
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
 
 
@@ -28,7 +28,7 @@ class Payment(models.Model):
 
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
     payment_date = models.DateField(verbose_name="дата платежа")
-    kurs = models.ForeignKey("Kurs", verbose_name="курс", on_delete=models.CASCADE)
+    course = models.ForeignKey("Course", verbose_name="курс", on_delete=models.CASCADE)
     amount = models.DecimalField(verbose_name='оплачено', decimal_places=2, max_digits=10)
     type = models.CharField(max_length=1, choices=PaymentType.choices, default=PaymentType.BANK,
                             verbose_name='способ оплаты')
@@ -36,5 +36,5 @@ class Payment(models.Model):
 
 class Subscription(models.Model):
 
-    kurs = models.ForeignKey("Kurs", null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey("Course", null=True, on_delete=models.CASCADE)
     user = models.ForeignKey("users.User", null=True, on_delete=models.CASCADE)

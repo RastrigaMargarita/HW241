@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from config import settings
-from lessons.views.kurs import KursViewSet
+from lessons.views.course import CourseViewSet
 from lessons.views.lesson import LessonCreateView, LessonDestroyView, LessonRetriveView, LessonUpdateView, LessonListView
 from lessons.views.payment import PaymentListView
 from lessons.views.subscription import SubscribeCreateView, SubscribeDeleteView
@@ -20,5 +20,5 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 router = routers.DefaultRouter()
-router.register(r'kurs', KursViewSet, basename="kurs")
+router.register(r'course', CourseViewSet, basename="course")
 urlpatterns += router.urls

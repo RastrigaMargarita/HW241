@@ -9,6 +9,6 @@ class PaymentListView(generics.ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ['kurs', 'type']
+    search_fields = ['course', 'type']
     permission_classes = [IsAuthenticated]
     ordering_fields = ['payment_date', '-payment_date', 'amount', '-amount']

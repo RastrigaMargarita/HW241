@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from lessons.models import Course, Lesson, Subscription
+from lessons.models import Course, Lesson, Subscription, PaymentIntens
 
 
 @admin.register(Course)
@@ -16,3 +16,8 @@ class LessonAdmin(admin.ModelAdmin):
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'course')
+
+
+@admin.register(PaymentIntens)
+class PaymentIntens(admin.ModelAdmin):
+    list_display = ('amount', 'amount_received')

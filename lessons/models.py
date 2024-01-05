@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 from lessons.validators import validate_video_url
@@ -38,3 +40,11 @@ class Subscription(models.Model):
 
     course = models.ForeignKey("Course", null=True, on_delete=models.CASCADE)
     user = models.ForeignKey("users.User", null=True, on_delete=models.CASCADE)
+
+
+class PaymentIntens(models.Model):
+
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)
+    payments_id = models.CharField(max_length=150, verbose_name='УИ платежа в банке', null=True)
+    amount = models.DecimalField(verbose_name='Запрошено', decimal_places=2, max_digits=10, null=True)
+    amount_received = models.DecimalField(verbose_name='оплачено', decimal_places=2, max_digits=10, null=True)

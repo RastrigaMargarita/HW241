@@ -6,6 +6,7 @@ from lessons.serializers.subscription import SubscriptionCreateSerializer, Subsc
 
 
 class SubscribeCreateView(generics.CreateAPIView):
+    """Создание подписки"""
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionCreateSerializer
     permission_classes = [IsAuthenticated]
@@ -19,6 +20,7 @@ class SubscribeCreateView(generics.CreateAPIView):
 
 
 class SubscribeDeleteView(generics.DestroyAPIView):
+    """Удаление подписки"""
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionDeleteSerializer
     permission_classes = [IsAuthenticated]

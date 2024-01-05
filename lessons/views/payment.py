@@ -5,7 +5,9 @@ from rest_framework.permissions import IsAuthenticated
 from lessons.models import Payment
 from lessons.serializers.payment import PaymentSerializer
 
+
 class PaymentListView(generics.ListAPIView):
+    """Список оплат"""
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     filter_backends = [SearchFilter, OrderingFilter]

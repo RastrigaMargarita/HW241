@@ -19,6 +19,8 @@ class IsOwner(BasePermission):
         if [IsAuthenticated]:
             return request.user == view.get_object().owner
         return False
+
+
 class IsNotModerator(BasePermission):
     def has_permission(self, request, view):
         if [IsAuthenticated]:

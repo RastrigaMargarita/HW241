@@ -43,7 +43,8 @@ class PaymentIntenseCreateView(generics.CreateAPIView):
         except RequestException as e:
             # Обработка исключения
             print(e)
-            print(Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR))
+            print(Response({'error': str(e)},
+                           status=status.HTTP_500_INTERNAL_SERVER_ERROR))
 
         new_payment.save()
 
@@ -74,6 +75,7 @@ class PaymentIntenseRetrieveView(generics.UpdateAPIView):
         except RequestException as e:
             # Обработка исключения
             print(e)
-            print(Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR))
+            print(Response({'error': str(e)},
+                           status=status.HTTP_500_INTERNAL_SERVER_ERROR))
 
         current_payment.save()

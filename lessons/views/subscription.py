@@ -2,7 +2,9 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from lessons.models import Subscription, Course
-from lessons.serializers.subscription import SubscriptionCreateSerializer, SubscriptionDeleteSerializer
+from lessons.serializers.subscription import \
+    SubscriptionCreateSerializer, \
+    SubscriptionDeleteSerializer
 
 
 class SubscribeCreateView(generics.CreateAPIView):

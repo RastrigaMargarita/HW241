@@ -11,13 +11,17 @@ class Course(models.Model):
     description = models.CharField(max_length=500, verbose_name="описание", null=True)
     picture = models.ImageField(verbose_name="изображение (превью)", null=True)
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
+    updated = models.DateTimeField(verbose_name="дата последнего апдейта", null=True)
 
 
 class Lesson(models.Model):
     title = models.CharField(max_length=100, verbose_name="Название", unique=True)
     description = models.CharField(max_length=500, verbose_name="описание", null=True)
     picture = models.ImageField(verbose_name="изображение (превью)", null=True)
-    video = models.CharField(max_length=500, verbose_name="ссылка на видео", null=True, validators=[validate_video_url])
+    video = models.CharField(max_length=500,
+                             verbose_name="ссылка на видео",
+                             null=True,
+                             validators=[validate_video_url])
     course = models.ForeignKey("Course", on_delete=models.CASCADE)
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
 
@@ -46,5 +50,11 @@ class PaymentIntens(models.Model):
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)
     payments_id = models.CharField(max_length=150, verbose_name='УИ платежа в банке', null=True)
-    amount = models.DecimalField(verbose_name='Запрошено', decimal_places=2, max_digits=10, null=True)
-    amount_received = models.DecimalField(verbose_name='оплачено', decimal_places=2, max_digits=10, null=True)
+    amount = models.DecimalField(verbose_name='Запрошено',
+                                 decimal_places=2,
+                                 max_digits=10,
+                                 null=True)
+    amount_received = models.DecimalField(verbose_name='оплачено',
+                                          decimal_places=2,
+                                          max_digits=10,
+                                          null=True)

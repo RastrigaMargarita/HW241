@@ -1,11 +1,12 @@
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.reverse import reverse
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
+
+from lessons.tasks import update_mailing
 from lessons.models import Course
 from lessons.paginations import PagePagination
 from lessons.permissions import IsOwnerOrModerator, IsOwner, IsNotModerator
 from lessons.serializers.course import CourseSerializer
+from datetime import datetime
+from django.utils import timezone
 
 
 class CourseViewSet(ModelViewSet):
@@ -43,6 +44,11 @@ class CourseViewSet(ModelViewSet):
             self.permission_classes = [IsOwnerOrModerator]
         elif self.action == 'partial_update':
             self.permission_classes = [IsOwnerOrModerator]
-
-
         return super(CourseViewSet, self).get_permissions()
+
+
+    def perform_update(self, serializer):
+        updated_course = serializer.save()
+        updated_course.updated = datetime.now(tz=timezone.timezone.utc)
+        updated_course.save()
+        update_mailing.delay()

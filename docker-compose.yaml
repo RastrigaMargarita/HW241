@@ -2,8 +2,8 @@ version: '3'
 services:
   app:
     build: .
-    command: python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000
+    command:
+      bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./pddata:/var/lib/postgresql/data
     restart: on-failure

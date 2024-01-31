@@ -2,7 +2,8 @@ version: '3'
 services:
   app:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./pddata:/var/lib/postgresql/data
     restart: on-failure
@@ -15,11 +16,10 @@ services:
 
   db:
     image: postgres:13
-    environment:
-      POSTGRES_DB: lessons
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /var/lib/pgsql/data
+    env_file:
+      - .env
+    expose:
+      - '5432'
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
